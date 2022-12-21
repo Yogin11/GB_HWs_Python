@@ -33,7 +33,7 @@ import string
 os.system('cls')
 
 def loaddict(path):                     # чтение данных о стоимости букв из файлов
-    data = open(path, 'r') 
+    data = open(path, 'r',encoding="utf8")
     dictionary = {} 
     for line in data: 
         sep = line.split(',',1)
