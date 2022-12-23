@@ -62,17 +62,17 @@
 
 
 ######## 2 - строковый
-# num = input("Введите шестизначное число: ")
-# if not num.isdigit() or len(num) !=6 :
-#   print("Введенный номер не является шестизначным числом")
-# else:
-#   sum = 0
-#   for i in range(3):
-#       sum = sum + int(num[i]) - int(num[-(i+1)])
-#   if sum == 0:
-#       print("Билет - счастливый!")
-#   else:
-#       print("Билет - обыкновенный")
+num = input("Введите шестизначное число: ")
+if not num.isdigit() or len(num) !=6 :
+  print("Введенный номер не является шестизначным числом")
+else:
+  sum = 0
+  for i in range(3):
+      sum = sum + int(num[i]) - int(num[-(i+1)])
+  if sum == 0:
+      print("Билет - счастливый!")
+  else:
+      print("Билет - обыкновенный")
 
 """
 Задача 8
