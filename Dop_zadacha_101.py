@@ -29,6 +29,7 @@ while True:
 составит список простых множителей числа N.
 
 '''
+from ast import pattern
 import os
 os.system('cls')
 
@@ -73,21 +74,32 @@ os.system('cls')
 x*x + 5 = 0 
 10*x*x = 0
 """ 
-# import random
-# 
-# k = int(input("Введите степень многочлена: "))
-# koef = []
-# for i in range(k+1):
-    # koef.append(int(random.randint(0,101)))
-# x = "*x"
-# st = ''
-# for i in range(k+1):
-    # st = st + str(koef[i])+x*(k-i) + " + "
-# final = st.rstrip()[:-1] + " = 0" 
-# with open ("file2.txt", "w") as f:
-    # f.write(final)
-# print(final)
-# 
+import random
+
+def createMnogochlen (pattern):              # формируем новый многочлен на базе словаря
+    x = "*x"
+    mnoz = []
+    for i in pattern:
+        if pattern[i]==0:
+            continue
+        if pattern[i] == 1:
+            mnoz.append((x*(i))[1:])
+        else:
+            mnoz.append(str(pattern[i])+x*(i))
+    d = " + ".join(mnoz)
+    return d + " = 0" 
+
+for l in range(1,3): 
+    k = int(input("Введите степень многочлена: "))
+    slovar = {}
+    for i in range(k,random.randint(0,1)*(-1),-1):  # формируем коэффициенты и степени членов в словаре
+        slovar[i] = random.randint(0,101)
+        
+    final = createMnogochlen(slovar)    
+    with open ("file"+str(l)+".txt", "w") as f:
+        f.write(final)
+    # print(final)
+
 """
  Задача 104. Даны два файла file1.txt и file2.txt, в каждом из которых находится 
  запись многочлена (полученные в результате работы программы из задачи 103). 
@@ -97,10 +109,38 @@ x*x + 5 = 0
 
 with open ("file1.txt", "r") as f:
     str1 = f.read()
-
+    
 with open ("file2.txt", "r") as f:
     str2 = f.read()
-
 print (str1+"\n"+str2)
+ 
+def components (str):               # помещаем коэффициенты и степени членов в словарь
+    dic = {}
+    for i in str.split("+"):
+        if "=" in i:
+            i=i.replace("=","")
+        stepen=i.count('x')
+        koef = i[:i.find("*")]
+        dic[stepen] = int(koef.strip())
+    return dic
+
+urav1 = components(str1)
+urav2 = components(str2)
+pattern ={}
+maxstep = max(max(urav1.keys()),max(urav2.keys()))  # максимальная степень многочленов 
+
+for i in range(maxstep+1,-1,-1):
+    pattern[i] = 0
+    if i in urav1:
+        pattern[i] += urav1[i]
+    if i in urav2:
+        pattern[i] += urav2[i]
+    
+result = createMnogochlen (pattern)
+with open ("file_sum.txt", "w") as f:
+    f.write(result)
+
+print (result)
+       
 
 
