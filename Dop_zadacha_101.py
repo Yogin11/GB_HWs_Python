@@ -29,7 +29,7 @@ while True:
 составит список простых множителей числа N.
 
 '''
-from ast import pattern
+# from ast import pattern
 import os
 os.system('cls')
 
@@ -89,6 +89,16 @@ def createMnogochlen (pattern):              # формируем новый м�
     d = " + ".join(mnoz)
     return d + " = 0" 
 
+def ioFile (mode, filenum='', result=''):                   # чтение или запись в файл
+    with open ("file"+str(filenum)+".txt", mode) as f:
+        if mode == "r":
+            st = f.read()
+            return st
+        if mode == "w":
+            f.write(result)
+   
+
+
 for l in range(1,3): 
     k = int(input("Введите степень многочлена: "))
     slovar = {}
@@ -96,9 +106,7 @@ for l in range(1,3):
         slovar[i] = random.randint(0,101)
         
     final = createMnogochlen(slovar)    
-    with open ("file"+str(l)+".txt", "w") as f:
-        f.write(final)
-    # print(final)
+    ioFile("w",l,final)
 
 """
  Задача 104. Даны два файла file1.txt и file2.txt, в каждом из которых находится 
@@ -107,11 +115,11 @@ for l in range(1,3):
     
 """
 
-with open ("file1.txt", "r") as f:
-    str1 = f.read()
-    
-with open ("file2.txt", "r") as f:
-    str2 = f.read()
+
+str1= ioFile ("r",1)
+str2= ioFile ("r",2)
+
+
 print (str1+"\n"+str2)
  
 def components (str):               # помещаем коэффициенты и степени членов в словарь
@@ -137,8 +145,8 @@ for i in range(maxstep+1,-1,-1):
         pattern[i] += urav2[i]
     
 result = createMnogochlen (pattern)
-with open ("file_sum.txt", "w") as f:
-    f.write(result)
+
+ioFile ("w",'_sum',result)
 
 print (result)
        
